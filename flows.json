@@ -1,0 +1,221 @@
+[
+    {
+        "id": "accbeb57fd23cbb7",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5618bbc9421fef37",
+        "type": "rpi-dht22",
+        "z": "accbeb57fd23cbb7",
+        "name": "DHT11",
+        "topic": "rpi-dht11",
+        "dht": "11",
+        "pintype": "0",
+        "pin": "20",
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "0618ae5722331fbc",
+                "b4ea95c2350e957d",
+                "c53782578396b2ab",
+                "4af41b6954945ddb"
+            ]
+        ]
+    },
+    {
+        "id": "0618ae5722331fbc",
+        "type": "debug",
+        "z": "accbeb57fd23cbb7",
+        "name": "TEMP",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "e26a744a95678803",
+        "type": "inject",
+        "z": "accbeb57fd23cbb7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 320,
+        "wires": [
+            [
+                "5618bbc9421fef37"
+            ]
+        ]
+    },
+    {
+        "id": "b4ea95c2350e957d",
+        "type": "debug",
+        "z": "accbeb57fd23cbb7",
+        "name": "HUMID",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "humidity",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "807aacd00c2ba2fd",
+        "type": "ui_gauge",
+        "z": "accbeb57fd23cbb7",
+        "tab": "de506e354b27a231",
+        "name": "°C",
+        "group": "TEMPERATURE",
+        "order": "2",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "x": 870,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f5a0e9488243ea24",
+        "type": "ui_gauge",
+        "z": "accbeb57fd23cbb7",
+        "tab": "de506e354b27a231",
+        "name": "%",
+        "group": "HUMIDITY",
+        "order": "3",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "x": 870,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c53782578396b2ab",
+        "type": "function",
+        "z": "accbeb57fd23cbb7",
+        "name": "temperature",
+        "func": "msg.payload = msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "807aacd00c2ba2fd"
+            ]
+        ]
+    },
+    {
+        "id": "4af41b6954945ddb",
+        "type": "function",
+        "z": "accbeb57fd23cbb7",
+        "name": "humidity",
+        "func": "msg.payload = msg.humidity;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 420,
+        "wires": [
+            [
+                "f5a0e9488243ea24"
+            ]
+        ]
+    },
+    {
+        "id": "086c50aba9a8fb3a",
+        "type": "ui_button",
+        "z": "accbeb57fd23cbb7",
+        "tab": "de506e354b27a231",
+        "name": "ON",
+        "payload": "1",
+        "topic": "",
+        "group": "LED",
+        "order": 1,
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "d5144a274435f346"
+            ]
+        ]
+    },
+    {
+        "id": "8361a6f1a0eb75b7",
+        "type": "ui_button",
+        "z": "accbeb57fd23cbb7",
+        "tab": "de506e354b27a231",
+        "name": "OFF",
+        "payload": "0",
+        "topic": "",
+        "group": "LED",
+        "order": 1,
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "d5144a274435f346"
+            ]
+        ]
+    },
+    {
+        "id": "d5144a274435f346",
+        "type": "rpi-gpio out",
+        "z": "accbeb57fd23cbb7",
+        "name": "LED",
+        "pin": "21",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 390,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "de506e354b27a231",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": "1"
+    }
+]
